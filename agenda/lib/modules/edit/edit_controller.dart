@@ -1,0 +1,83 @@
+import 'package:agenda/application/theme/theme_config.dart';
+import 'package:agenda/application/ui/messages/messages_mixin.dart';
+import 'package:agenda/models/contact_model.dart';
+import 'package:agenda/services/data_service.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class EditController extends GetxController with MessagesMixin {
+  final DataService _dataService;
+  int? id;
+
+  Rxn<ContactModel> contato = Rxn<ContactModel>();
+
+  final formKey = GlobalKey<FormState>();
+  var nameController = TextEditingController();
+  var phoneController = TextEditingController();
+  RxBool isloading = false.obs;
+
+  Rxn<MessageModel> message = Rxn<MessageModel>();
+
+  EditController({required DataService dataService})
+      : _dataService = dataService;
+
+  @override
+  void onInit() {
+    id = Get.arguments;
+    messageListener(message);
+    super.onInit();
+  }
+
+  @override
+  Future<void> onReady() async {
+    if (this.id != null) {
+      contato(await _dataService.getContatoById(Get.arguments));
+      nameController.text = contato.value!.name;
+      phoneController.text = contato.value!.phoneNumber;
+    }
+
+    super.onReady();
+  }
+
+  void formOnChanged() {
+    formKey.currentState!.validate();
+  }
+
+  Future<void> formButtonOnClick() async {
+    isloading(true);
+    bool result = false;
+
+    if (formKey.currentState!.validate()) {
+      if (contato.value != null) {
+        ContactModel newContato = ContactModel(
+          profilePhotoUrl: contato.value!.profilePhotoUrl,
+          name: nameController.text,
+          phoneNumber: phoneController.text,
+        );
+
+        result = await _dataService.saveContato(newContato);
+        isloading(false);
+        Get.offAllNamed('/home');
+      } else {
+        ContactModel newContato = ContactModel(
+          profilePhotoUrl: ThemeConfig.defaultImage,
+          name: nameController.text,
+          phoneNumber: phoneController.text,
+        );
+        result = await _dataService.saveContato(newContato);
+        isloading(false);
+        Get.offAllNamed('/home');
+      }
+    }
+
+    if (result) {
+      message.value =
+          MessageModel.info(title: 'Parabéns', message: 'Contato salvo!');
+    } else {
+      message.value =
+          MessageModel.error(title: 'Error', message: 'Erro ao salvar contato');
+
+      isloading(false);
+    }
+  }
+}
