@@ -53,8 +53,9 @@ class DetailController extends GetxController
   }
 
   void onDelet() {
-    print('Deletando...');
+    _dataService.deleteContato(contato.value!.id!);
     Get.back();
+    Get.offAllNamed('/home');
   }
 
   void edit() {

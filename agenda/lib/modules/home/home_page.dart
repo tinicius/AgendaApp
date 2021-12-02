@@ -29,15 +29,23 @@ class _HomePageState extends State<HomePage> {
           future: controller.loadContatos(),
           builder: (context, snapshot) {
             return Obx(
-              () => ListView.builder(
-                itemCount: controller.contatos.length,
-                itemBuilder: (context, item) {
-                  return ContactCard(
-                    contato: controller.contatos[item],
-                    color: (item % 2 == 0) ? Colors.grey[400] : Colors.white,
+              () {
+                if (controller.contatos.length == 0) {
+                  return Center(
+                    child: Text("Adicione algum contato para começar!"),
                   );
-                },
-              ),
+                }
+
+                return ListView.builder(
+                  itemCount: controller.contatos.length,
+                  itemBuilder: (context, item) {
+                    return ContactCard(
+                      contato: controller.contatos[item],
+                      color: (item % 2 == 0) ? Colors.grey[400] : Colors.white,
+                    );
+                  },
+                );
+              },
             );
           },
         ));

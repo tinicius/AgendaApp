@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 
 class DataRepositoryImpl implements DataRepository {
-  List<ContactModel> contatos = [];
+  //List<ContactModel> contatos = [];
   SqlService _sqlService = Get.find<SqlService>();
 
   @override
@@ -18,21 +18,12 @@ class DataRepositoryImpl implements DataRepository {
 
   @override
   Future<ContactModel?> getContatoById(id) async {
-    try {
-      var resultContato;
+    ContactModel resultContato;
 
-      contatos.forEach((ContactModel element) {
-        if (element.id == id) {
-          resultContato = element;
-        }
-      });
+    resultContato = await _sqlService.contatoById(id);
 
-      return resultContato;
-    } catch (e) {
-      return null;
-    }
+    return resultContato;
   }
-
 
   //TODO refatorar
   @override
@@ -45,18 +36,8 @@ class DataRepositoryImpl implements DataRepository {
   }
 
   @override
-  Future<bool> editContato(ContactModel contato) async {
-    List<ContactModel> allContacts = await _sqlService.contatos();
-
-    allContacts.forEach((element) {
-      if (element.id == contato.id) {
-        contatos.remove(element);
-
-        contatos.add(contato);
-      }
-    });
-
-    return true;
+  Future<void> editContato(ContactModel contato) async {
+    _sqlService.updateContato(contato);
   }
 
   @override
@@ -80,5 +61,10 @@ class DataRepositoryImpl implements DataRepository {
     });
 
     return true;
+  }
+
+  @override
+  Future<void> deleteContato(String id) async {
+    _sqlService.deleteContato(id);
   }
 }

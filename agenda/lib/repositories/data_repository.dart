@@ -5,5 +5,6 @@ abstract class DataRepository {
   Future<ContactModel?> getContatoById(String id);
   Future<bool> saveContato(ContactModel contato);
   String generateUuid();
-  Future<bool> editContato(ContactModel contato);
+  Future<void> editContato(ContactModel contato);
+  Future<void> deleteContato(String id);
 }

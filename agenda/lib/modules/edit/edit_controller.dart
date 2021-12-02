@@ -54,13 +54,12 @@ class EditController extends GetxController with MessagesMixin {
     if (formKey.currentState!.validate()) {
       if (contato.value != null) {
         ContactModel newContato = ContactModel(
-          profilePhotoUrl: contato.value!.profilePhotoUrl,
-          name: nameController.text,
-          phoneNumber: phoneController.text,
-          id: id
-        );
+            profilePhotoUrl: contato.value!.profilePhotoUrl,
+            name: nameController.text,
+            phoneNumber: phoneController.text,
+            id: id);
 
-        result = await _dataService.editContato(newContato);
+        await _dataService.editContato(newContato);
         isloading(false);
         Get.offAllNamed('/home');
       } else {
@@ -80,9 +79,6 @@ class EditController extends GetxController with MessagesMixin {
       message.value =
           MessageModel.info(title: 'Parabéns', message: 'Contato salvo!');
     } else {
-      message.value =
-          MessageModel.error(title: 'Error', message: 'Erro ao salvar contato');
-
       isloading(false);
     }
   }
