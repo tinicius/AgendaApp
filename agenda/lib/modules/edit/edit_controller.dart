@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 class EditController extends GetxController with MessagesMixin {
   final DataService _dataService;
-  int? id;
+  String? id;
 
   Rxn<ContactModel> contato = Rxn<ContactModel>();
 
@@ -23,8 +23,12 @@ class EditController extends GetxController with MessagesMixin {
 
   @override
   void onInit() {
+    //Recebendo o id do perfil a ser editado, nulo caso seja a criação de um novo perfil
     id = Get.arguments;
+
+    //Inicializando o listener de avisos
     messageListener(message);
+
     super.onInit();
   }
 
@@ -53,9 +57,10 @@ class EditController extends GetxController with MessagesMixin {
           profilePhotoUrl: contato.value!.profilePhotoUrl,
           name: nameController.text,
           phoneNumber: phoneController.text,
+          id: id
         );
 
-        result = await _dataService.saveContato(newContato);
+        result = await _dataService.editContato(newContato);
         isloading(false);
         Get.offAllNamed('/home');
       } else {
@@ -64,6 +69,7 @@ class EditController extends GetxController with MessagesMixin {
           name: nameController.text,
           phoneNumber: phoneController.text,
         );
+
         result = await _dataService.saveContato(newContato);
         isloading(false);
         Get.offAllNamed('/home');

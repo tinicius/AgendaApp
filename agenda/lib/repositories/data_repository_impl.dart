@@ -3,13 +3,7 @@ import 'package:agenda/repositories/data_repository.dart';
 import 'package:uuid/uuid.dart';
 
 class DataRepositoryImpl implements DataRepository {
-  List<ContactModel> contatos = [
-    ContactModel(
-        profilePhotoUrl:
-            'https://www.publicdomainpictures.net/pictures/130000/velka/royal-letter-a.jpg',
-        name: 'João',
-        phoneNumber: '(37) 123321-1221')
-  ];
+  List<ContactModel> contatos = [];
 
   @override
   Future<List<ContactModel>> getContatos() async {
@@ -45,9 +39,19 @@ class DataRepositoryImpl implements DataRepository {
 
   @override
   Future<bool> editContato(ContactModel contato) async {
-    //List<ContactModel> allContacts = await getContatos();
+    List<ContactModel> allContacts = await getContatos();
 
-    return false;
+    print("Edit");
+
+    allContacts.forEach((element) {
+      if (element.id == contato.id) {
+        contatos.remove(element);
+
+        contatos.add(contato);
+      }
+    });
+
+    return true;
   }
 
   @override

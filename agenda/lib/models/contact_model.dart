@@ -9,5 +9,6 @@ class ContactModel {
     required this.profilePhotoUrl,
     required this.name,
     required this.phoneNumber,
+    this.id
   });
 }

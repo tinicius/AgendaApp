@@ -18,4 +18,8 @@ class DataServiceImpl implements DataService {
   @override
   Future<ContactModel?> getContatoById(String id) =>
       _dataRepository.getContatoById(id);
+
+  @override
+  Future<bool> editContato(ContactModel contato) =>
+      _dataRepository.editContato(contato);
 }

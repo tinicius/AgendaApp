@@ -4,4 +4,5 @@ abstract class DataService {
   Future<List<ContactModel>> getContatos();
   Future<ContactModel?> getContatoById(String id);
   Future<bool> saveContato(ContactModel contato);
+  Future<bool> editContato(ContactModel contato);
 }

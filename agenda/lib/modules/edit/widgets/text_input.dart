@@ -12,6 +12,7 @@ class TextInput extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
+       autovalidateMode: AutovalidateMode.disabled,
         controller: controller,
         validator: (value) {
           if (value!.isEmpty) {
