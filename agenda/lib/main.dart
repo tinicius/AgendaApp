@@ -6,6 +6,7 @@ import 'package:agenda/modules/home/home_module.dart';
 import 'package:agenda/modules/splash/splash_module.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/widgets.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

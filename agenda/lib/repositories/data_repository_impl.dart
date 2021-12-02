@@ -1,14 +1,19 @@
 import 'package:agenda/models/contact_model.dart';
 import 'package:agenda/repositories/data_repository.dart';
+import 'package:agenda/sqlite/sql_service.dart';
+import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 
 class DataRepositoryImpl implements DataRepository {
   List<ContactModel> contatos = [];
+  SqlService _sqlService = Get.find<SqlService>();
 
   @override
   Future<List<ContactModel>> getContatos() async {
     //Carregar dados da agenda
-    return this.contatos;
+    return _sqlService.contatos();
+
+    //return this.contatos;
   }
 
   @override
@@ -28,6 +33,8 @@ class DataRepositoryImpl implements DataRepository {
     }
   }
 
+
+  //TODO refatorar
   @override
   String generateUuid() {
     Uuid uuid = new Uuid();
@@ -39,9 +46,7 @@ class DataRepositoryImpl implements DataRepository {
 
   @override
   Future<bool> editContato(ContactModel contato) async {
-    List<ContactModel> allContacts = await getContatos();
-
-    print("Edit");
+    List<ContactModel> allContacts = await _sqlService.contatos();
 
     allContacts.forEach((element) {
       if (element.id == contato.id) {
@@ -56,7 +61,7 @@ class DataRepositoryImpl implements DataRepository {
 
   @override
   Future<bool> saveContato(ContactModel contato) async {
-    List<ContactModel> allContacts = await getContatos();
+    List<ContactModel> allContacts = await _sqlService.contatos();
 
     allContacts.map((e) {
       if (e.phoneNumber == contato.phoneNumber) {
@@ -65,8 +70,14 @@ class DataRepositoryImpl implements DataRepository {
     });
 
     contato.id = generateUuid();
+    print('contato = $contato');
+    _sqlService.insertContato(contato);
+    //contatos.add(contato);
 
-    contatos.add(contato);
+    var data = await _sqlService.contatos();
+    data.forEach((element) {
+      print(element.toString());
+    });
 
     return true;
   }
