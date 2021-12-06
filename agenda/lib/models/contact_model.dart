@@ -1,7 +1,7 @@
 class ContactModel {
   final String name;
   final String phoneNumber;
-  final String profilePhotoUrl;
+  String profilePhotoUrl;
 
   String? id;
 

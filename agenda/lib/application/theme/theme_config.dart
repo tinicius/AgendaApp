@@ -11,7 +11,7 @@ class ThemeConfig {
 
   static String get title => 'Agenda';
   static String get defaultImage =>
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Google_Contacts_logo.png/170px-Google_Contacts_logo.png';
+      'assets/images/github_logo.png';
 
   static ThemeData get theme => ThemeData(
       scaffoldBackgroundColor: Colors.white,

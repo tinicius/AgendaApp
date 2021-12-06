@@ -4,16 +4,19 @@ import 'package:agenda/models/contact_model.dart';
 import 'package:agenda/services/data_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditController extends GetxController with MessagesMixin {
   final DataService _dataService;
-  String? id;
+  final ImagePicker _imagePicker = ImagePicker();
 
   Rxn<ContactModel> contato = Rxn<ContactModel>();
+  String? id;
 
   final formKey = GlobalKey<FormState>();
   var nameController = TextEditingController();
   var phoneController = TextEditingController();
+  Rxn<String> imageController = Rxn<String>(ThemeConfig.defaultImage);
   RxBool isloading = false.obs;
 
   Rxn<MessageModel> message = Rxn<MessageModel>();
@@ -38,6 +41,7 @@ class EditController extends GetxController with MessagesMixin {
       contato(await _dataService.getContatoById(Get.arguments));
       nameController.text = contato.value!.name;
       phoneController.text = contato.value!.phoneNumber;
+      imageController.value = contato.value!.profilePhotoUrl;
     }
 
     super.onReady();
@@ -64,7 +68,7 @@ class EditController extends GetxController with MessagesMixin {
         Get.offAllNamed('/home');
       } else {
         ContactModel newContato = ContactModel(
-          profilePhotoUrl: ThemeConfig.defaultImage,
+          profilePhotoUrl: imageController.value!,
           name: nameController.text,
           phoneNumber: phoneController.text,
         );
@@ -81,5 +85,15 @@ class EditController extends GetxController with MessagesMixin {
     } else {
       isloading(false);
     }
+  }
+
+  Future<void> editPhotoButtomClick() async {
+    try {
+      final XFile? image =
+          await _imagePicker.pickImage(source: ImageSource.gallery);
+
+      imageController.value = image?.path;
+      contato.value?.profilePhotoUrl = imageController.value!;
+    } catch (e) {}
   }
 }

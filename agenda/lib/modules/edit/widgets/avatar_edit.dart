@@ -1,22 +1,25 @@
 import 'package:agenda/application/theme/theme_config.dart';
 import 'package:agenda/application/ui/widgets/avatar_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AvatarEdit extends StatelessWidget {
   final String? imageUrl;
+  final VoidCallback? onPressed;
 
-  const AvatarEdit({Key? key, this.imageUrl}) : super(key: key);
+  const AvatarEdit({Key? key, this.imageUrl, this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
+        
         AvatarImage(radius: 60, imageUrl: imageUrl,),
         Material(
           shape: CircleBorder(),
           child: InkWell(
-            onTap: () {},
+            onTap: onPressed,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Icon(

@@ -24,7 +24,8 @@ class EditPage extends GetView<EditController> {
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: AvatarEdit(
-                    imageUrl: controller.contato.value?.profilePhotoUrl,
+                    imageUrl: controller.imageController.value,
+                    onPressed: controller.editPhotoButtomClick,
                   ),
                 ),
                 Divider(),
