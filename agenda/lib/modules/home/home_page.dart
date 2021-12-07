@@ -28,6 +28,12 @@ class _HomePageState extends State<HomePage> {
         body: FutureBuilder(
           future: controller.loadContatos(),
           builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
             return Obx(
               () {
                 if (controller.contatos.length == 0) {

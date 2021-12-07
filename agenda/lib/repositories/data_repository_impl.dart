@@ -51,14 +51,9 @@ class DataRepositoryImpl implements DataRepository {
     });
 
     contato.id = generateUuid();
-    print('contato = $contato');
+    
     _sqlService.insertContato(contato);
     //contatos.add(contato);
-
-    var data = await _sqlService.contatos();
-    data.forEach((element) {
-      print(element.toString());
-    });
 
     return true;
   }

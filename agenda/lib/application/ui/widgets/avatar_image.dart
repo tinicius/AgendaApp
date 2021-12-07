@@ -15,7 +15,10 @@ class AvatarImage extends StatelessWidget {
     var image;
 
     if (imageUrl == null) {
-      image = Image.asset(ThemeConfig.defaultImage).image;
+      image = Image.asset(
+        ThemeConfig.defaultImage,
+        fit: BoxFit.fill,
+      ).image;
     } else {
       if (imageUrl!.contains('assets')) {
         image = Image.asset(
@@ -30,9 +33,6 @@ class AvatarImage extends StatelessWidget {
     return CircleAvatar(
       radius: radius,
       backgroundImage: image,
-      child: Container(
-        decoration: BoxDecoration(shape: BoxShape.circle),
-      ),
       backgroundColor: ThemeConfig.blue1,
     );
   }

@@ -11,7 +11,7 @@ class ThemeConfig {
 
   static String get title => 'Agenda';
   static String get defaultImage =>
-      'assets/images/github_logo.png';
+      'assets/images/default_image.png';
 
   static ThemeData get theme => ThemeData(
       scaffoldBackgroundColor: Colors.white,

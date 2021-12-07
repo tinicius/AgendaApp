@@ -64,26 +64,25 @@ class EditController extends GetxController with MessagesMixin {
             id: id);
 
         await _dataService.editContato(newContato);
+
         isloading(false);
+
         Get.offAllNamed('/home');
+        
       } else {
+
         ContactModel newContato = ContactModel(
           profilePhotoUrl: imageController.value!,
           name: nameController.text,
           phoneNumber: phoneController.text,
         );
 
-        result = await _dataService.saveContato(newContato);
+        result = await _dataService.saveContato(newContato); 
+
         isloading(false);
+
         Get.offAllNamed('/home');
       }
-    }
-
-    if (result) {
-      message.value =
-          MessageModel.info(title: 'Parabéns', message: 'Contato salvo!');
-    } else {
-      isloading(false);
     }
   }
 
