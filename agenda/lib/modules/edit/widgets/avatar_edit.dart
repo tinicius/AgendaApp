@@ -15,7 +15,7 @@ class AvatarEdit extends StatelessWidget {
       alignment: Alignment.bottomRight,
       children: [
         
-        AvatarImage(radius: 60, imageUrl: imageUrl,),
+        AvatarImage(radius: 60, imageSource: imageUrl,),
         Material(
           shape: CircleBorder(),
           child: InkWell(

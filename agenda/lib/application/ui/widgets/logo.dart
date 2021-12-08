@@ -12,9 +12,10 @@ class Logo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: ThemeConfig.red,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.white)),
+        color: ThemeConfig.red,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.white),
+      ),
       height: height,
       width: width,
     );

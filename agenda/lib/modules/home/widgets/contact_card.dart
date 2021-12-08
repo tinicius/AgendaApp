@@ -29,7 +29,7 @@ class _ContactCardState extends State<ContactCard> {
       tileColor: widget.color,
       leading: AvatarImage(
         radius: ContactCard.RADIUS,
-        imageUrl: widget.contato.profilePhotoUrl,
+        imageSource: widget.contato.profilePhotoUrl,
       ),
       trailing: InkWell(
         onTap: () {

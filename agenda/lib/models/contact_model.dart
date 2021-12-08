@@ -5,11 +5,12 @@ class ContactModel {
 
   String? id;
 
-  ContactModel(
-      {required this.profilePhotoUrl,
-      required this.name,
-      required this.phoneNumber,
-      this.id});
+  ContactModel({
+    required this.profilePhotoUrl,
+    required this.name,
+    required this.phoneNumber,
+    this.id,
+  });
 
   Map<String, dynamic> toMap() {
     return {

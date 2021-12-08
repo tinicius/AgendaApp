@@ -33,7 +33,7 @@ class DetailHeader extends StatelessWidget {
                   ),
                   child: AvatarImage(
                     radius: RADIUS,
-                    imageUrl: imageUrl,
+                    imageSource: imageUrl,
                   )),
               Expanded(
                 child: Container(

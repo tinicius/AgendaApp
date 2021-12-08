@@ -5,25 +5,25 @@ import 'package:flutter/material.dart';
 
 class AvatarImage extends StatelessWidget {
   final double radius;
-  final String? imageUrl;
+  final String? imageSource;
   final ImageProvider? image;
 
-  static setImage(imageUrl) {
-    if (imageUrl == null) {
+  static setImage(imageSource) {
+    if (imageSource == null) {
       return Image.asset(ThemeConfig.defaultImage, fit: BoxFit.fill).image;
     } else {
-      if (imageUrl!.contains('assets')) {
-        return Image.asset(imageUrl!, fit: BoxFit.fill).image;
-      } else if (imageUrl!.contains('http')) {
-        return Image.network(imageUrl!, fit: BoxFit.fill).image;
+      if (imageSource!.contains('assets')) {
+        return Image.asset(imageSource!, fit: BoxFit.fill).image;
+      } else if (imageSource!.contains('http')) {
+        return Image.network(imageSource!, fit: BoxFit.fill).image;
       } else {
-        return Image.file(File(imageUrl!), fit: BoxFit.fill).image;
+        return Image.file(File(imageSource!), fit: BoxFit.fill).image;
       }
     }
   }
 
-  AvatarImage({Key? key, required this.radius, this.imageUrl})
-      : image = setImage(imageUrl);
+  AvatarImage({Key? key, required this.radius, this.imageSource})
+      : image = setImage(imageSource);
 
   @override
   Widget build(BuildContext context) {

@@ -7,9 +7,6 @@ class LogoMark extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      'tinicius',
-      style: TextStyle(fontSize: fontSize),
-    );
+    return Text('tinicius', style: TextStyle(fontSize: fontSize));
   }
 }
