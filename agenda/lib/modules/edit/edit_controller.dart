@@ -1,13 +1,11 @@
 import 'package:agenda/application/theme/theme_config.dart';
-import 'package:agenda/application/ui/messages/messages_mixin.dart';
 import 'package:agenda/models/contact_model.dart';
 import 'package:agenda/repositories/data_repository.dart';
-import 'package:agenda/services/data_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-class EditController extends GetxController with MessagesMixin {
+class EditController extends GetxController {
   final DataRepository _dataRepository;
   final ImagePicker _imagePicker = ImagePicker();
 
@@ -20,8 +18,6 @@ class EditController extends GetxController with MessagesMixin {
   Rxn<String> imageController = Rxn<String>(ThemeConfig.defaultImage);
   RxBool isloading = false.obs;
 
-  Rxn<MessageModel> message = Rxn<MessageModel>();
-
   EditController({required DataRepository dataRepository})
       : _dataRepository = dataRepository;
 
@@ -29,9 +25,6 @@ class EditController extends GetxController with MessagesMixin {
   void onInit() {
     //Recebendo o id do perfil a ser editado, nulo caso seja a criação de um novo perfil
     id = Get.arguments;
-
-    //Inicializando o listener de avisos
-    messageListener(message);
 
     super.onInit();
   }

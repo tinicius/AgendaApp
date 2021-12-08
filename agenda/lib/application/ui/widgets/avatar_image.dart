@@ -6,30 +6,27 @@ import 'package:flutter/material.dart';
 class AvatarImage extends StatelessWidget {
   final double radius;
   final String? imageUrl;
+  final ImageProvider? image;
 
-  const AvatarImage({Key? key, required this.radius, this.imageUrl})
-      : super(key: key);
+  static setImage(imageUrl) {
+    if (imageUrl == null) {
+      return Image.asset(ThemeConfig.defaultImage, fit: BoxFit.fill).image;
+    } else {
+      if (imageUrl!.contains('assets')) {
+        return Image.asset(imageUrl!, fit: BoxFit.fill).image;
+      } else if (imageUrl!.contains('http')) {
+        return Image.network(imageUrl!, fit: BoxFit.fill).image;
+      } else {
+        return Image.file(File(imageUrl!), fit: BoxFit.fill).image;
+      }
+    }
+  }
+
+  AvatarImage({Key? key, required this.radius, this.imageUrl})
+      : image = setImage(imageUrl);
 
   @override
   Widget build(BuildContext context) {
-    var image;
-
-    if (imageUrl == null) {
-      image = Image.asset(
-        ThemeConfig.defaultImage,
-        fit: BoxFit.fill,
-      ).image;
-    } else {
-      if (imageUrl!.contains('assets')) {
-        image = Image.asset(
-          imageUrl!,
-          fit: BoxFit.fill,
-        ).image;
-      } else {
-        image = Image.file(File(imageUrl!), fit: BoxFit.fill).image;
-      }
-    }
-
     return CircleAvatar(
       radius: radius,
       backgroundImage: image,

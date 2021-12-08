@@ -10,12 +10,11 @@ class ThemeConfig {
   static Color blue2 = Color.fromRGBO(29, 53, 87, 1);
 
   static String get title => 'Agenda';
-  static String get defaultImage =>
-      'assets/images/default_image.png';
+
+  static String get defaultImage => 'assets/images/default_image.png';
 
   static ThemeData get theme => ThemeData(
-      scaffoldBackgroundColor: Colors.white,
-      appBarTheme: AppBarTheme(
-        backgroundColor: ThemeConfig.blue2,
-      ));
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: AppBarTheme(backgroundColor: ThemeConfig.blue2),
+      );
 }

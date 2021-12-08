@@ -1,19 +1,17 @@
 import 'package:agenda/application/ui/loader/loader_mixin.dart';
 import 'package:agenda/application/ui/messages/delete_dialog.dart';
-import 'package:agenda/application/ui/messages/messages_mixin.dart';
 import 'package:agenda/models/contact_model.dart';
 import 'package:agenda/services/data_service.dart';
 import 'package:get/get.dart';
 
 class DetailController extends GetxController
-    with LoaderMixin, MessagesMixin, DeleteDialog {
+    with LoaderMixin, DeleteDialog {
   final Rxn<ContactModel> contato = Rxn<ContactModel>();
   final DataService _dataService;
 
   String? id;
 
   RxBool _loading = false.obs;
-  Rxn<MessageModel> message = Rxn<MessageModel>();
 
   DetailController({required DataService dataService})
       : _dataService = dataService;
@@ -24,7 +22,6 @@ class DetailController extends GetxController
 
     id = Get.arguments;
     loaderListener(_loading);
-    messageListener(message);
   }
 
   @override

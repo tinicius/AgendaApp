@@ -13,10 +13,7 @@ class AppbarButton extends StatelessWidget {
       shape: CircleBorder(),
       child: InkWell(
         onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Icon(icon),
-        ),
+        child: Padding(padding: const EdgeInsets.all(8.0), child: Icon(icon)),
       ),
       color: Colors.transparent,
       clipBehavior: Clip.antiAlias,

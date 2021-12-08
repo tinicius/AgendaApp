@@ -12,13 +12,14 @@ mixin DeleteDialog on GetxController {
             content: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                TextButton(onPressed: onBack, child: Text('Voltar')),
                 TextButton(
-                    onPressed: onDelete,
-                    child: Text(
-                      'Apagar',
-                      style: TextStyle(color: Colors.red),
-                    ))
+                  onPressed: onBack,
+                  child: Text('Voltar'),
+                ),
+                TextButton(
+                  onPressed: onDelete,
+                  child: Text('Apagar', style: TextStyle(color: Colors.red)),
+                )
               ],
             ),
           ),
