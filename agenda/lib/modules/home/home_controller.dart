@@ -25,8 +25,6 @@ class HomeController extends GetxController with LoaderMixin {
     }
   }
 
-  
-
   Future<void> loadContatos() async {
     final contacts = await _dataService.getContatos();
     contatos.assignAll(contacts);

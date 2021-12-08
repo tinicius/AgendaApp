@@ -1,10 +1,37 @@
 import 'package:agenda/models/contact_model.dart';
+import 'package:agenda/services/data_service.dart';
+import 'package:agenda/services/sql_service_impl.dart';
 
-abstract class DataRepository {
-  Future<List<ContactModel>> getContatos();
-  Future<ContactModel?> getContatoById(String id);
-  Future<bool> saveContato(ContactModel contato);
-  String generateUuid();
-  Future<void> editContato(ContactModel contato);
-  Future<void> deleteContato(String id);
+class DataRepository {
+  DataService _service = SqlService();
+
+  Future<List<ContactModel>> getContatos() async {
+    return _service.getContatos();
+  }
+
+  Future<ContactModel?> getContatoById(id) async {
+    ContactModel resultContato = await _service.getContatoById(id);
+    return resultContato;
+  }
+
+  Future<void> editContato(ContactModel contato) async {
+    _service.editContato(contato);
+  }
+
+  Future<void> addContato(ContactModel contato) async {
+    List<ContactModel> allContacts = await _service.getContatos();
+
+    allContacts.map((e) {
+      if (e.phoneNumber == contato.phoneNumber) {
+        throw Exception("Contato já existe");
+      }
+    });
+
+    _service.addContato(contato);
+  
+  }
+
+  Future<void> deleteContato(String id) async {
+    _service.deleteContato(id);
+  }
 }

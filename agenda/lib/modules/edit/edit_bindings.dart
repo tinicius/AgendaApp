@@ -4,6 +4,6 @@ import './edit_controller.dart';
 class EditBindings implements Bindings {
   @override
   void dependencies() {
-    Get.put(EditController(dataService: Get.find()));
+    Get.put(EditController(dataRepository: Get.find()));
   }
 }

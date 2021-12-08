@@ -1,13 +1,14 @@
 import 'package:agenda/application/theme/theme_config.dart';
 import 'package:agenda/application/ui/messages/messages_mixin.dart';
 import 'package:agenda/models/contact_model.dart';
+import 'package:agenda/repositories/data_repository.dart';
 import 'package:agenda/services/data_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditController extends GetxController with MessagesMixin {
-  final DataService _dataService;
+  final DataRepository _dataRepository;
   final ImagePicker _imagePicker = ImagePicker();
 
   Rxn<ContactModel> contato = Rxn<ContactModel>();
@@ -21,8 +22,8 @@ class EditController extends GetxController with MessagesMixin {
 
   Rxn<MessageModel> message = Rxn<MessageModel>();
 
-  EditController({required DataService dataService})
-      : _dataService = dataService;
+  EditController({required DataRepository dataRepository})
+      : _dataRepository = dataRepository;
 
   @override
   void onInit() {
@@ -38,7 +39,7 @@ class EditController extends GetxController with MessagesMixin {
   @override
   Future<void> onReady() async {
     if (this.id != null) {
-      contato(await _dataService.getContatoById(Get.arguments));
+      contato(await _dataRepository.getContatoById(Get.arguments));
       nameController.text = contato.value!.name;
       phoneController.text = contato.value!.phoneNumber;
       imageController.value = contato.value!.profilePhotoUrl;
@@ -63,21 +64,19 @@ class EditController extends GetxController with MessagesMixin {
             phoneNumber: phoneController.text,
             id: id);
 
-        await _dataService.editContato(newContato);
+        await _dataRepository.editContato(newContato);
 
         isloading(false);
 
         Get.offAllNamed('/home');
-        
       } else {
-
         ContactModel newContato = ContactModel(
           profilePhotoUrl: imageController.value!,
           name: nameController.text,
           phoneNumber: phoneController.text,
         );
 
-        result = await _dataService.saveContato(newContato); 
+        await _dataRepository.addContato(newContato);
 
         isloading(false);
 
