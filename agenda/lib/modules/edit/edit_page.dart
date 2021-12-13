@@ -11,7 +11,7 @@ class EditPage extends GetView<EditController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Editar'),
+        title: Text(controller.titlePage),
       ),
       body: SizedBox(
         width: Get.width,

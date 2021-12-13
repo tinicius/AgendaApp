@@ -1,11 +1,16 @@
 import 'package:agenda/application/theme/theme_config.dart';
 import 'package:agenda/models/contact_model.dart';
+import 'package:agenda/models/page_arguments.dart';
 import 'package:agenda/repositories/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditController extends GetxController {
+  PageArguments? arguments;
+
+  String titlePage = "";
+
   final DataRepository _dataRepository;
   final ImagePicker _imagePicker = ImagePicker();
 
@@ -24,7 +29,16 @@ class EditController extends GetxController {
   @override
   void onInit() {
     //Recebendo o id do perfil a ser editado, nulo caso seja a criação de um novo perfil
-    id = Get.arguments;
+
+    arguments = Get.arguments;
+
+    if (arguments?.id != null) {
+      id = arguments!.id;
+    }
+
+    if (arguments?.title != null) {
+      titlePage = arguments!.title!;
+    }
 
     super.onInit();
   }
@@ -32,7 +46,7 @@ class EditController extends GetxController {
   @override
   Future<void> onReady() async {
     if (this.id != null) {
-      contato(await _dataRepository.getContatoById(Get.arguments));
+      contato(await _dataRepository.getContatoById(arguments?.id));
       nameController.text = contato.value!.name;
       phoneController.text = contato.value!.phoneNumber;
       imageController.value = contato.value!.profilePhotoUrl;
@@ -75,6 +89,10 @@ class EditController extends GetxController {
 
         Get.offAllNamed('/home');
       }
+    } else {
+      Get.snackbar(
+          "Por favor tente novamente", "Insira as informações corretamente!");
+      isloading(false);
     }
   }
 

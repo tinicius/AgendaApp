@@ -31,19 +31,37 @@ class _ContactCardState extends State<ContactCard> {
         radius: ContactCard.RADIUS,
         imageSource: widget.contato.profilePhotoUrl,
       ),
-      trailing: InkWell(
-        onTap: () {
-          Get.toNamed(
-            '/detail',
-            arguments: widget.contato.id,
+      trailing: Obx(() {
+        if (homeController.isLoading.value) {
+          return CircularProgressIndicator();
+        } else {
+          return Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              InkWell(
+                onTap: () {
+                  homeController.editButton(widget.contato.id!);
+                },
+                customBorder: CircleBorder(),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(Icons.edit),
+                ),
+              ),
+              InkWell(
+                onTap: () async {
+                  homeController.deleteButton(widget.contato.id!);
+                },
+                customBorder: CircleBorder(),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(Icons.delete),
+                ),
+              ),
+            ],
           );
-        },
-        customBorder: CircleBorder(),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Icon(Icons.visibility),
-        ),
-      ),
+        }
+      }),
       title: Text(
         widget.contato.name,
         overflow: TextOverflow.ellipsis,

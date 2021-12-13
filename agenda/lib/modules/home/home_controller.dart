@@ -1,12 +1,13 @@
 import 'package:agenda/application/ui/loader/loader_mixin.dart';
 import 'package:agenda/models/contact_model.dart';
+import 'package:agenda/models/page_arguments.dart';
 import 'package:agenda/services/data_service.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController with LoaderMixin {
   final DataService _dataService;
 
-  RxBool _isLoading = false.obs;
+  RxBool isLoading = false.obs;
 
   var contatos = <ContactModel>[].obs;
 
@@ -28,10 +29,20 @@ class HomeController extends GetxController with LoaderMixin {
   Future<void> loadContatos() async {
     final contacts = await _dataService.getContatos();
     contatos.assignAll(contacts);
-   
   }
 
   void floatButtonOnClick() {
-    Get.toNamed('/edit');
+    Get.toNamed('/edit', arguments: PageArguments(title: "Adicionar"));
+  }
+
+  void editButton(String id) {
+    Get.toNamed('/edit', arguments: PageArguments(id: id, title: "Editar"));
+  }
+
+  void deleteButton(id) async {
+    isLoading(true);
+    await _dataService.deleteContato(id);
+    await loadContatos();
+    isLoading(false);
   }
 }
