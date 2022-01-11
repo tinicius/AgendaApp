@@ -61,7 +61,6 @@ class EditController extends GetxController {
 
   Future<void> formButtonOnClick() async {
     isloading(true);
-    bool result = false;
 
     if (formKey.currentState!.validate()) {
       if (contato.value != null) {

@@ -1,6 +1,5 @@
 import 'package:agenda/application/bindings/application_bindings.dart';
 import 'package:agenda/application/theme/theme_config.dart';
-import 'package:agenda/modules/detail/detail_modules.dart';
 import 'package:agenda/modules/edit/edit_module.dart';
 import 'package:agenda/modules/home/home_module.dart';
 import 'package:agenda/modules/splash/splash_module.dart';
@@ -25,7 +24,6 @@ class MyApp extends StatelessWidget {
       getPages: [
         ...SplashModules().routes,
         ...HomeModule().routes,
-        ...DetailModules().routes,
         ...EditModule().routes,
       ],
     );
