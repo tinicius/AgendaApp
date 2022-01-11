@@ -21,7 +21,12 @@ class ContactModel {
     };
   }
 
-  @override
+  ContactModel.fromJson(Map<String, dynamic> json)
+      : name = json["name"],
+        phoneNumber = json["phoneNumber"],
+        profilePhotoUrl = json["profilePhotoUrl"],
+        id = json["id"];
+
   String toString() {
     return 'Contato{id: $id, name: $name}';
   }

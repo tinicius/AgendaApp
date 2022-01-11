@@ -1,11 +1,13 @@
 import 'package:agenda/models/contact_model.dart';
 import 'package:agenda/services/data_service.dart';
-import 'package:agenda/services/sql_service_impl.dart';
+import 'package:agenda/services/firebase_service_impl.dart';
 
 class DataRepository {
-  DataService _service = SqlService();
+  //DataService _service = SqlService();
+  DataService _service = FirebaseServiceImpl();
 
   Future<List<ContactModel>> getContatos() async {
+    print("a");
     return _service.getContatos();
   }
 
@@ -28,7 +30,6 @@ class DataRepository {
     });
 
     _service.addContato(contato);
-  
   }
 
   Future<void> deleteContato(String id) async {

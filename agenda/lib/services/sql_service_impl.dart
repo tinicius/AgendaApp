@@ -1,11 +1,12 @@
 import 'package:agenda/models/contact_model.dart';
 import 'package:agenda/services/data_service.dart';
+import 'package:agenda/services/uuid_generate_service.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:uuid/uuid.dart';
 
 class SqlService implements DataService {
   Database? _database;
+  UuidGenerateService uuidGenerateService = UuidGenerateService();
 
   Future<Database?> get database async {
     if (_database != null) {
@@ -25,14 +26,6 @@ class SqlService implements DataService {
       },
       version: 1,
     );
-  }
-
-  String _generateUuid() {
-    Uuid uuid = new Uuid();
-
-    String newId = uuid.v4();
-
-    return newId;
   }
 
   @override
@@ -92,7 +85,7 @@ class SqlService implements DataService {
     final Database db = (await database)!;
 
     if (contato.id == null) {
-      contato.id = _generateUuid();
+      contato.id = uuidGenerateService.generateUuid();
     }
 
     await db.insert('contatos', contato.toMap(),
