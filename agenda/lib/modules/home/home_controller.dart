@@ -7,8 +7,6 @@ import 'package:get/get.dart';
 class HomeController extends GetxController with LoaderMixin {
   final DataService _dataService;
 
-  RxBool isLoading = false.obs;
-
   var contatos = <ContactModel>[].obs;
 
   HomeController({required DataService dataService})
@@ -40,9 +38,7 @@ class HomeController extends GetxController with LoaderMixin {
   }
 
   void deleteButton(id) async {
-    isLoading(true);
     await _dataService.deleteContato(id);
     await loadContatos();
-    isLoading(false);
   }
 }

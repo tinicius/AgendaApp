@@ -31,37 +31,31 @@ class _ContactCardState extends State<ContactCard> {
         radius: ContactCard.RADIUS,
         imageSource: widget.contato.profilePhotoUrl,
       ),
-      trailing: Obx(() {
-        if (homeController.isLoading.value) {
-          return CircularProgressIndicator();
-        } else {
-          return Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              InkWell(
-                onTap: () {
-                  homeController.editButton(widget.contato.id!);
-                },
-                customBorder: CircleBorder(),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(Icons.edit),
-                ),
-              ),
-              InkWell(
-                onTap: () async {
-                  homeController.deleteButton(widget.contato.id!);
-                },
-                customBorder: CircleBorder(),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(Icons.delete),
-                ),
-              ),
-            ],
-          );
-        }
-      }),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          InkWell(
+            onTap: () {
+              homeController.editButton(widget.contato.id!);
+            },
+            customBorder: CircleBorder(),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(Icons.edit),
+            ),
+          ),
+          InkWell(
+            onTap: () async {
+              homeController.deleteButton(widget.contato.id!);
+            },
+            customBorder: CircleBorder(),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(Icons.delete),
+            ),
+          ),
+        ],
+      ),
       title: Text(
         widget.contato.name,
         overflow: TextOverflow.ellipsis,

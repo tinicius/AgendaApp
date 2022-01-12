@@ -90,7 +90,10 @@ class EditController extends GetxController {
       }
     } else {
       Get.snackbar(
-          "Por favor tente novamente", "Insira as informações corretamente!");
+          "Por favor tente novamente", "Insira as informações corretamente!",
+          snackStyle: SnackStyle.GROUNDED,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.blue,);
       isloading(false);
     }
   }

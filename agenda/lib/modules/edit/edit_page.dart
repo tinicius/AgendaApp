@@ -17,8 +17,9 @@ class EditPage extends GetView<EditController> {
         width: Get.width,
         child: Obx(() {
           return Form(
+            autovalidateMode: AutovalidateMode.disabled,
             key: controller.formKey,
-            onChanged: controller.formOnChanged,
+            //onChanged: controller.formOnChanged,
             child: Column(
               children: [
                 Padding(
@@ -28,7 +29,6 @@ class EditPage extends GetView<EditController> {
                     onPressed: controller.editPhotoButtomClick,
                   ),
                 ),
-                Divider(),
                 TextInput(
                   labelText: 'Nome',
                   controller: controller.nameController,
@@ -37,7 +37,6 @@ class EditPage extends GetView<EditController> {
                   labelText: 'Telefone',
                   controller: controller.phoneController,
                 ),
-                Divider(),
                 (!controller.isloading.value)
                     ? TextButton(
                         onPressed: controller.formButtonOnClick,
